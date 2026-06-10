@@ -1191,9 +1191,9 @@
                             
                             <div style="width: 320px; background: #222; color: #fff; text-align: center; padding: 8px 0; font-size: 16px; font-weight: bold; letter-spacing: 4px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.5);">STAGE</div>
                             
-                            <div id="exportSeatingGrid" style="display:flex; flex-direction:column; gap: 4px; width: 100%; align-items: center; justify-content: center;"></div>
-                            
-                            <div style="text-align: center; margin-top: 25px; font-size: 14px; color: #C2AA9D; line-height: 1;">
+                            <div id="exportSeatingGrid" style="display:flex; flex-direction:column; gap: 4px; transform: scale(1.1); transform-origin: center top; width: max-content; margin: 0 auto;"></div>
+
+                            <div style="text-align: center; margin-top: 35px; font-size: 14px; color: #C2AA9D; line-height: 1;">
                                 <span style="display: inline-block; margin: 0 8px;"><span style="display: inline-block; width:12px; height:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:3px; vertical-align: -1px; margin-right: 4px;"></span>0회</span>
                                 <span style="display: inline-block; margin: 0 8px;"><span style="display: inline-block; width:12px; height:12px; background:#fecaca; border:1px solid #f87171; border-radius:3px; vertical-align: -1px; margin-right: 4px;"></span>1회</span>
                                 <span style="display: inline-block; margin: 0 8px;"><span style="display: inline-block; width:12px; height:12px; background:#fef08a; border:1px solid #facc15; border-radius:3px; vertical-align: -1px; margin-right: 4px;"></span>2회</span>
@@ -1249,10 +1249,10 @@
             const b = (id, l) => `<div style="width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; font-size: 10px; font-family: 'Baekbeom', sans-serif; flex-shrink: 0; ${getStyle(seatCounts[id]||0)}"></div>`;
             const eb = (n) => Array(n).fill(`<div style="width: 22px; height: 22px; background: transparent; flex-shrink: 0;"></div>`).join('');
             
-            const wrap = (name, inn) => `<div style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 2px 0;">
-                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: right; margin-right: 6px; flex-shrink: 0;">${name}</span>
-                <div style="display: flex; gap: 4px; align-items: center; justify-content: center; flex-shrink: 0;">${inn}</div>
-                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: left; margin-left: 6px; flex-shrink: 0;">${name}</span>
+            const wrap = (name, inn) => `<div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: right; margin-right: 8px;">${name}</span>
+                <div style="display: flex; gap: 4px; align-items: center; justify-content: center; width: 542px;">${inn}</div>
+                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: left; margin-left: 8px;">${name}</span>
             </div>`;
 
             let h = '';
