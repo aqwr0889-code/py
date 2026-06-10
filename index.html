@@ -925,9 +925,9 @@
             const eb = (n) => Array(n).fill(`<div class="w-[10px] h-[10px] sm:w-[13px] sm:h-[13px] md:w-[18px] md:h-[18px] lg:w-[22px] lg:h-[22px] bg-transparent flex-shrink-0"></div>`).join('');
             
             const wrap = (name, inn) => `<div class="flex items-center justify-center w-full relative py-[1px]">
-                <span class="absolute -left-5 sm:-left-6 md:-left-7 lg:-left-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-right">${name}</span>
+                <span class="absolute top-1/2 -translate-y-1/2 -left-5 sm:-left-6 md:-left-7 lg:-left-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-right">${name}</span>
                 <div class="flex gap-[1px] md:gap-[2px] lg:gap-[3px] justify-center">${inn}</div>
-                <span class="absolute -right-5 sm:-right-6 md:-right-7 lg:-right-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-left">${name}</span>
+                <span class="absolute top-1/2 -translate-y-1/2 -right-5 sm:-right-6 md:-right-7 lg:-right-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-left">${name}</span>
             </div>`;
 
             let h = '';
@@ -1024,14 +1024,14 @@
                     const isFirstDayOfWeek = dayOfWeek === 0, isLastDayOfWeek = dayOfWeek === 6;
                     const connLeft = eventsByDate[prevStr] === eventText && !isFirstDayOfWeek, connRight = eventsByDate[nextStr] === eventText && !isLastDayOfWeek; 
                     
-                    let rbCls = `${eventColorMap[eventText]} py-0.5 md:py-1 mt-1 z-10 border-y relative h-[16px] md:h-[22px] flex items-center justify-center `;
+                    let rbCls = `${eventColorMap[eventText]} py-0.5 md:py-1 z-10 border-y relative h-[16px] md:h-[22px] flex items-center justify-center `;
                     if (connLeft && connRight) rbCls += "-ml-[1px] -mr-[1px] w-[calc(100%+2px)] border-x-0 rounded-none"; 
                     else if (connLeft) rbCls += "-ml-[1px] mr-0.5 rounded-r rounded-l-none border-l-0 w-[calc(100%+1px)]";
                     else if (connRight) rbCls += "ml-0.5 -mr-[1px] rounded-l rounded-r-none border-r-0 w-[calc(100%+1px)]";
                     else rbCls += "mx-1 rounded border w-[calc(100%-8px)]";
 
                     const displayTxt = centerDates.has(dateStr) ? `<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-max px-1 text-[7.5px] md:text-[10px] tracking-tight font-bold whitespace-nowrap z-30 pointer-events-none text-slate-800 drop-shadow-sm">${eventText}</span>` : '';
-                    dayHtml += `<div class="w-full relative">${displayTxt}<div class="${rbCls}" title="${eventText}"></div></div>`;
+                    dayHtml += `<div class="w-full relative mt-1">${displayTxt}<div class="${rbCls}" title="${eventText}"></div></div>`;
                 } else {
                     dayHtml += `<div class="h-[18px] md:h-[26px] mt-1"></div>`;
                 }
@@ -1249,10 +1249,10 @@
             const b = (id, l) => `<div style="width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; font-size: 10px; font-family: 'Baekbeom', sans-serif; flex-shrink: 0; ${getStyle(seatCounts[id]||0)}"></div>`;
             const eb = (n) => Array(n).fill(`<div style="width: 22px; height: 22px; background: transparent; flex-shrink: 0;"></div>`).join('');
             
-            const wrap = (name, inn) => `<div style="display: flex; align-items: center; justify-content: center; width: 100%;">
-                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: right; margin-right: 8px;">${name}</span>
-                <div style="display: flex; gap: 4px; align-items: center; justify-content: center; width: 542px;">${inn}</div>
-                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: left; margin-left: 8px;">${name}</span>
+            const wrap = (name, inn) => `<div style="display: flex; align-items: center; justify-content: center; width: 100%; position: relative; padding: 2px 0;">
+                <span style="position: absolute; top: 50%; transform: translateY(-50%); left: -24px; font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: right;">${name}</span>
+                <div style="display: flex; gap: 4px; align-items: center; justify-content: center;">${inn}</div>
+                <span style="position: absolute; top: 50%; transform: translateY(-50%); right: -24px; font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: left;">${name}</span>
             </div>`;
 
             let h = '';
