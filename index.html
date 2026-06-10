@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>박열｜정산 시트</title>
+    <title>뮤지컬 박열｜정산 시트</title>
     <script src="https://cdn.tailwindcss.com/3.4.3"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
@@ -448,11 +448,10 @@
         let generatedImageUrl = '';
 
         const __todayForCal = new Date();
-        let calYear = __todayForCal.getFullYear();
+        let calYear = 2026;
         let calMonth = __todayForCal.getMonth();
-        if (calYear !== 2026) { calYear = 2026; calMonth = 5; }
-        else if (calMonth < 5) calMonth = 5;
-        else if (calMonth > 8) calMonth = 8;
+        if (__todayForCal.getFullYear() < 2026 || calMonth < 5) calMonth = 5;
+        else if (__todayForCal.getFullYear() > 2026 || calMonth > 8) calMonth = 8;
         let currentCalDate = new Date(calYear, calMonth, 1);
 
         const ribbonColors = [
@@ -600,8 +599,16 @@
             document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('bg-py-500', 'text-white', 'shadow-sm', 'font-bold'); b.classList.add('text-slate-600', 'hover:bg-slate-50', 'font-medium'); });
             document.getElementById(tabId).classList.add('active');
             const tb = document.getElementById(`btn-${tabId}`);
-            tb.classList.remove('text-slate-600', 'hover:bg-slate-50', 'font-medium');
-            tb.classList.add('bg-py-500', 'text-white', 'shadow-sm', 'font-bold');
+            tb.classList.remove('text-slate-600', 'hover:bg-slate-50', 'font-medium'); tb.classList.add('bg-py-500', 'text-white', 'shadow-sm', 'font-bold');
+            
+            if (tabId === 'calendarSheet') {
+                const t = new Date();
+                let m = t.getMonth();
+                if (t.getFullYear() < 2026 || m < 5) m = 5;
+                else if (t.getFullYear() > 2026 || m > 8) m = 8;
+                currentCalDate = new Date(2026, m, 1);
+                renderCalendar();
+            }
         }
 
         function handleDateChange() {
@@ -844,12 +851,10 @@
             document.getElementById('scheduleDetailModal').classList.add('active');
         }
 
-        // 3. 스케줄 상세 팝업 닫기 함수
         function closeScheduleDetailModal() {
             document.getElementById('scheduleDetailModal').classList.remove('active');
         }
 
-        // 빠른 추가 처리 함수
         function quickAddRecord(date, time, parkyeol, fumiko, ryuji) {
             let seat = document.getElementById('quickSeat').value.toUpperCase().replace(/\s+/g, '');
             if (!seat) seat = '관극 예정'; 
