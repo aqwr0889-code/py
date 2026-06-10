@@ -925,9 +925,9 @@
             const eb = (n) => Array(n).fill(`<div class="w-[10px] h-[10px] sm:w-[13px] sm:h-[13px] md:w-[18px] md:h-[18px] lg:w-[22px] lg:h-[22px] bg-transparent flex-shrink-0"></div>`).join('');
             
             const wrap = (name, inn) => `<div class="flex items-center justify-center w-full relative py-[1px]">
-                <span class="absolute top-1/2 -translate-y-1/2 -left-5 sm:-left-6 md:-left-7 lg:-left-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-right">${name}</span>
+                <span class="absolute -left-5 sm:-left-6 md:-left-7 lg:-left-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-right">${name}</span>
                 <div class="flex gap-[1px] md:gap-[2px] lg:gap-[3px] justify-center">${inn}</div>
-                <span class="absolute top-1/2 -translate-y-1/2 -right-5 sm:-right-6 md:-right-7 lg:-right-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-left">${name}</span>
+                <span class="absolute -right-5 sm:-right-6 md:-right-7 lg:-right-8 text-[8px] md:text-[10px] text-slate-400 font-bold w-4 text-left">${name}</span>
             </div>`;
 
             let h = '';
@@ -1249,10 +1249,10 @@
             const b = (id, l) => `<div style="width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; font-size: 10px; font-family: 'Baekbeom', sans-serif; flex-shrink: 0; ${getStyle(seatCounts[id]||0)}"></div>`;
             const eb = (n) => Array(n).fill(`<div style="width: 22px; height: 22px; background: transparent; flex-shrink: 0;"></div>`).join('');
             
-            const wrap = (name, inn) => `<div style="display: flex; align-items: center; justify-content: center; width: 100%; position: relative; padding: 2px 0;">
-                <span style="position: absolute; top: 50%; transform: translateY(-50%); left: -24px; font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: right;">${name}</span>
-                <div style="display: flex; gap: 4px; align-items: center; justify-content: center;">${inn}</div>
-                <span style="position: absolute; top: 50%; transform: translateY(-50%); right: -24px; font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: left;">${name}</span>
+            const wrap = (name, inn) => `<div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: right; margin-right: 8px;">${name}</span>
+                <div style="display: flex; gap: 4px; align-items: center; justify-content: center; width: 542px;">${inn}</div>
+                <span style="font-size: 11px; color: rgba(255,255,255,0.4); width: 16px; font-weight: bold; text-align: left; margin-left: 8px;">${name}</span>
             </div>`;
 
             let h = '';
