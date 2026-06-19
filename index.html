@@ -30,7 +30,6 @@
         }
     </script>
 
-    <!-- Vercel Web Analytics -->
     <script> window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -91,50 +90,57 @@
                 </h1>
                 <p class="text-py-200 text-xs mt-1">2026-06-10 ~ 2026-09-06 | 링크아트센터드림 드림4관</p>
                 
-                <div class="mt-3 flex items-center gap-2 relative">
-                    <button onclick="exportData()" class="text-[10px] bg-py-800 border border-py-700 hover:bg-py-700 px-2.5 py-1 rounded text-py-100 transition"><i class="fa-solid fa-download mr-1"></i>데이터 백업</button>
-                    <label class="cursor-pointer text-[10px] bg-py-800 border border-py-700 hover:bg-py-700 px-2.5 py-1 rounded text-py-100 transition">
-                        <i class="fa-solid fa-upload mr-1"></i>데이터 복원
+                <div class="mt-3 flex items-center gap-2 relative flex-wrap">
+                    <button onclick="exportData()" class="text-[10px] bg-py-800 border border-py-700 hover:bg-py-700 h-7 rounded text-py-100 transition w-24 flex items-center justify-center font-medium">
+                        <i class="fa-solid fa-download mr-1.5"></i>데이터 백업
+                    </button>
+                    <label class="cursor-pointer text-[10px] bg-py-800 border border-py-700 hover:bg-py-700 h-7 rounded text-py-100 transition w-24 flex items-center justify-center font-medium m-0">
+                        <i class="fa-solid fa-upload mr-1.5"></i>데이터 복원
                         <input type="file" id="importFile" class="hidden" accept=".json" onchange="importData(event)">
                     </label>
+                    <button onclick="fullReset()" class="text-[10px] bg-rose-900/30 border border-rose-800/50 hover:bg-rose-700 hover:text-white h-7 rounded text-rose-200 transition w-24 flex items-center justify-center font-medium">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i>전체 리셋
+                    </button>
+
                     <div class="relative group inline-block">
-                        <button class="text-py-300 hover:text-white text-xs p-1 focus:outline-none">
+                        <button class="text-py-300 hover:text-white text-xs p-1 focus:outline-none flex items-center justify-center h-7">
                             <i class="fa-solid fa-circle-info"></i>
                         </button>
-                        <div class="absolute top-full left-0 mt-2 w-[280px] bg-slate-950 text-slate-200 text-[11px] p-3 rounded-xl shadow-xl border border-slate-700 hidden group-hover:block z-50 space-y-1.5 leading-relaxed text-left">
+                        <div class="absolute top-full right-0 md:left-0 md:right-auto mt-2 w-[280px] max-w-[85vw] bg-slate-950 text-slate-200 text-[11px] p-3 rounded-xl shadow-xl border border-slate-700 hidden group-hover:block z-50 space-y-1.5 leading-relaxed text-left">
                             <p class="font-bold text-py-500 border-b border-slate-800 pb-1 flex items-center gap-1">
-                                <i class="fa-solid fa-gear"></i> 데이터 백업/복원 안내
+                                <i class="fa-solid fa-gear"></i> 데이터 관리 안내
                             </p>
-                            <p><strong>📥 데이터 백업:</strong> 현재까지 기록한 모든 정보(도장판, 할인권 수량, 관극 일지)를 <code>parkyeol_backup.json</code> 파일로 기기에 다운로드합니다.</p>
-                            <p><strong>📤 데이터 복원:</strong> 백업해둔 JSON 파일을 선택하여 불러옵니다. 기존 입력 정보는 사라지고 백업 시점의 상태로 완벽하게 복구됩니다.</p>
-                            <p class="text-[10px] text-slate-400 pt-0.5 border-t border-slate-800">※ 기기를 변경하거나 브라우저 쿠키/캐시를 청소하기 전에 반드시 파일을 백업해 보관해 두세요!</p>
+                            <p><strong>📥 데이터 백업:</strong> 현재까지 기록한 모든 정보를 백업합니다.</p>
+                            <p><strong>📤 데이터 복원:</strong> 백업해둔 파일을 선택하여 복원합니다.</p>
+                            <p><strong>🔄 전체 리셋:</strong> 모든 기록을 삭제하고 초기화합니다.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex gap-2">
-                <button onclick="fullReset()" class="bg-py-800/50 border border-rose-900/50 text-rose-300 hover:bg-rose-900 hover:text-white px-3 py-2 rounded-xl text-xs transition flex flex-col justify-center items-center shadow-inner group">
-                    <i class="fa-solid fa-rotate-right mb-1 group-hover:animate-spin"></i> 전체 리셋
-                </button>
+            <div class="grid grid-cols-3 gap-2 md:gap-3 w-full md:w-auto mt-2 md:mt-0">
                 
-                <div class="bg-py-900 border border-py-700 px-4 py-2 rounded-xl text-center shadow-inner relative group min-w-[110px]">
-                    <span class="text-[11px] block text-py-300 font-medium">40% 할인권</span>
-                    <span id="globalCouponCount" class="text-lg font-bold text-py-400">0장</span>
-                    <div class="absolute inset-0 bg-py-900/90 hidden group-hover:flex items-center justify-center rounded-xl gap-2 backdrop-blur-sm border border-py-700">
-                        <button onclick="adjustTicket('coupons', -1)" class="w-6 h-6 bg-py-700 text-white rounded-full text-xs hover:bg-rose-500 transition">-</button>
-                        <button onclick="adjustTicket('coupons', 1)" class="w-6 h-6 bg-py-700 text-white rounded-full text-xs hover:bg-emerald-500 transition">+</button>
+                <div class="bg-py-900 border border-py-700 px-2 py-2 md:px-4 md:py-2 rounded-xl text-center shadow-inner relative group flex flex-col justify-center items-center min-w-[95px] md:min-w-[110px]">
+                    <span class="text-[10px] md:text-[11px] block text-py-300 font-medium mb-1">기타 할인권</span>
+                    <span id="globalOtherCouponCount" class="text-sm md:text-lg font-bold text-py-200 leading-none mt-auto">0장</span>
+                    
+                    <div class="absolute inset-0 bg-py-900/95 hidden group-hover:flex items-center justify-center rounded-xl gap-2 backdrop-blur-sm border border-py-700">
+                        <button onclick="adjustTicket('otherCoupons', -1)" class="w-6 h-6 bg-py-700 text-white rounded-full text-xs hover:bg-rose-500 transition flex items-center justify-center">-</button>
+                        <span id="hoverOtherCouponCount" class="text-xs font-bold text-purple-300 min-w-[12px] text-center">0</span>
+                        <button onclick="adjustTicket('otherCoupons', 1)" class="w-6 h-6 bg-py-700 text-white rounded-full text-xs hover:bg-emerald-500 transition flex items-center justify-center">+</button>
                     </div>
+                </div>
+                
+                <div class="bg-py-900 border border-py-700 px-2 py-2 md:px-4 md:py-2 rounded-xl text-center shadow-inner flex flex-col justify-center items-center min-w-[95px] md:min-w-[110px]">
+                    <span class="text-[10px] md:text-[11px] block text-py-300 font-medium mb-1">40% 할인권</span>
+                    <span id="globalCouponCount" class="text-sm md:text-lg font-bold text-py-400 leading-none mt-auto">0장</span>
                 </div>
 
-                <div class="bg-py-900 border border-py-700 px-4 py-2 rounded-xl text-center shadow-inner relative group min-w-[110px]">
-                    <span class="text-[11px] block text-py-300 font-medium">OST 교환권</span>
-                    <span id="globalOstCount" class="text-lg font-bold text-amber-400">0장</span>
-                    <div class="absolute inset-0 bg-py-900/90 hidden group-hover:flex items-center justify-center rounded-xl gap-2 backdrop-blur-sm border border-py-700">
-                        <button onclick="adjustTicket('ostTickets', -1)" class="w-6 h-6 bg-py-700 text-white rounded-full text-xs hover:bg-rose-500 transition">-</button>
-                        <button onclick="adjustTicket('ostTickets', 1)" class="w-6 h-6 bg-py-700 text-white rounded-full text-xs hover:bg-emerald-500 transition">+</button>
-                    </div>
+                <div class="bg-py-900 border border-py-700 px-2 py-2 md:px-4 md:py-2 rounded-xl text-center shadow-inner flex flex-col justify-center items-center min-w-[95px] md:min-w-[110px]">
+                    <span class="text-[10px] md:text-[11px] block text-py-300 font-medium mb-1">OST 교환권</span>
+                    <span id="globalOstCount" class="text-sm md:text-lg font-bold text-amber-400 leading-none mt-auto">0장</span>
                 </div>
+
             </div>
         </header>
 
@@ -248,11 +254,13 @@
                                     <option value="1">1개</option><option value="2">2개</option><option value="3">3개</option>
                                 </select>
                             </div>
-                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 flex items-center justify-center">
-                                <label class="flex items-center gap-1.5 cursor-pointer">
-                                    <input type="checkbox" id="useCoupon" onchange="toggleCouponCheckbox()" class="w-3.5 h-3.5 text-py-500 rounded">
-                                    <span class="text-[11px] font-semibold text-slate-700">할인권 사용</span>
-                                </label>
+                            <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                                <label class="block text-[10px] font-semibold text-slate-500 mb-1">할인권 사용</label>
+                                <select id="couponType" onchange="handleCouponChange(this)" class="w-full bg-white border border-slate-200 p-1 rounded-lg text-xs focus:outline-none focus:border-py-500">
+                                    <option value="">미사용</option>
+                                    <option value="40">40% 할인권</option>
+                                    <option value="other">기타 할인권</option>
+                                </select>
                             </div>
                         </div>
 
@@ -440,11 +448,14 @@
             appData.cards.forEach(c => c.stamps = 0);
             appData.coupons = 0;
             appData.ostTickets = 0;
-
+            appData.otherCoupons = appData.baseOtherCoupons || 0;
+            
             appData.records.forEach(record => {
-                if (record.useCoupon) {
-                    appData.coupons--;
-                }
+                if (record.useCoupon === true && !record.couponType) record.couponType = '40';
+                else if (record.useCoupon === false && !record.couponType) record.couponType = '';
+
+                if (record.couponType === '40') appData.coupons--;
+                else if (record.couponType === 'other') appData.otherCoupons--;
 
                 let card = appData.cards.find(c => c.id === record.cardId);
                 
@@ -469,8 +480,9 @@
         let eventsByDate = {};
         
         let appData = JSON.parse(localStorage.getItem('parkyeolSheetStorage')) || {
-            cards: [{ id: Date.now(), stamps: 0, isActive: true }], coupons: 0, ostTickets: 0, records: []
+            cards: [{ id: Date.now(), stamps: 0, isActive: true }], coupons: 0, ostTickets: 0, records: [], baseOtherCoupons: 0
         };
+        if (appData.baseOtherCoupons === undefined) appData.baseOtherCoupons = 0;
 
         let globalStats = null;
         let generatedImageUrl = '';
@@ -596,6 +608,16 @@
                         eventsByDate[dateStr] = eventStr;
                     }
                 });
+
+                const allDates = Object.keys(eventsByDate).sort();
+                allDates.forEach(d => {
+                    const ev = eventsByDate[d];
+                    if (!eventColorMap[ev]) {
+                        eventColorMap[ev] = ribbonColors[colorIndex % ribbonColors.length];
+                        colorIndex++;
+                    }
+                });
+
             } catch (error) {
                 console.error('스케줄 로드 실패:', error);
                 alert(`🚨 스케줄 데이터를 불러오지 못했습니다!\n\n${error.message}`);
@@ -633,8 +655,24 @@
             renderAll(); 
         }
 
-        function fullReset() { if(confirm("정말 모두 초기화하시겠습니까?")) { appData = { cards: [{ id: Date.now(), stamps: 0, isActive: true }], coupons: 0, ostTickets: 0, records: [] }; saveData(); alert('초기화 완료'); } }
-        function adjustTicket(type, amount) { if (type === 'coupons') appData.coupons = Math.max(0, appData.coupons + amount); else if (type === 'ostTickets') appData.ostTickets = Math.max(0, appData.ostTickets + amount); saveData(); }
+        function fullReset() { if(confirm("정말 모두 초기화하시겠습니까?")) { appData = { cards: [{ id: Date.now(), stamps: 0, isActive: true }], coupons: 0, ostTickets: 0, records: [], baseOtherCoupons: 0 }; saveData(); alert('초기화 완료'); } }
+        
+        function adjustTicket(type, amount) { 
+            if (type === 'otherCoupons') {
+                appData.baseOtherCoupons = Math.max(0, (appData.baseOtherCoupons || 0) + amount);
+                saveData(); 
+            }
+        }
+
+        function handleCouponChange(elem) {
+            if (elem.value === '40' && appData.coupons <= 0) {
+                alert('40% 할인권이 부족합니다.'); 
+                elem.value = '';
+            } else if (elem.value === 'other' && appData.otherCoupons <= 0) {
+                alert('기타 할인권이 부족합니다.'); 
+                elem.value = '';
+            }
+        }
         
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -707,8 +745,6 @@
             }
             saveData();
         }
-
-        function toggleCouponCheckbox() { const cb = document.getElementById('useCoupon'); if (cb.checked && appData.coupons <= 0) { alert('할인권이 없습니다.'); cb.checked = false; } }
         
         function editRecord(id) {
             const r = appData.records.find(rec => rec.id === id); if (!r) return;
@@ -716,7 +752,6 @@
             if (appData.records.filter(rec => (rec.visitGroupId || rec.id) === groupId).length > 1) return alert('분할 적립된 기록은 개별 수정이 불가합니다. 삭제 후 다시 등록해주세요.');
             
             document.getElementById('editRecordId').value = r.id; 
-            
             const cardSel = document.getElementById('editCardSelect');
             cardSel.innerHTML = appData.cards.map((c, i) => `<option value="${c.id}">📁 도장판 #${i+1} (현재 ${c.stamps}개)</option>`).join('');
             cardSel.value = r.cardId;
@@ -728,7 +763,11 @@
             if(!Array.from(ts.options).some(opt => opt.value === pureTime)) ts.innerHTML += `<option value="${pureTime}">${pureTime} (수동)</option>`;
             ts.value = pureTime;
             document.getElementById('castParkyeol').value = r.parkyeol; document.getElementById('castFumiko').value = r.fumiko; document.getElementById('castRyuji').value = r.ryuji;
-            document.getElementById('seatInfo').value = (r.seat === '관극 예정') ? '' : r.seat; document.getElementById('stampsEarned').value = r.qty;
+            document.getElementById('seatInfo').value = (r.seat === '관극 예정') ? '' : r.seat; 
+            document.getElementById('stampsEarned').value = r.qty;
+            
+            document.getElementById('couponType').value = r.couponType || (r.useCoupon ? '40' : '');
+
             document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen-to-square text-amber-500"></i> 기록 수정 중...';
             document.getElementById('submitBtn').innerText = '🔄 수정된 정보 저장'; document.getElementById('submitBtn').classList.replace('bg-slate-900', 'bg-amber-600'); document.getElementById('cancelEditBtn').classList.remove('hidden');
         }
@@ -749,70 +788,53 @@
         function addOrUpdateRecord(e) {
             e.preventDefault();
             const editId = document.getElementById('editRecordId').value;
-            const date = document.getElementById('perfDate').value;
-            const time = document.getElementById('perfTime').value.replace(' (수동)', '');
-            const parkyeol = document.getElementById('castParkyeol').value;
-            const fumiko = document.getElementById('castFumiko').value;
-            const ryuji = document.getElementById('castRyuji').value;
+            const date = document.getElementById('perfDate').value, time = document.getElementById('perfTime').value.replace(' (수동)', '');
+            const parkyeol = document.getElementById('castParkyeol').value, fumiko = document.getElementById('castFumiko').value, ryuji = document.getElementById('castRyuji').value;
             let seat = document.getElementById('seatInfo').value.toUpperCase().replace(/\s+/g, '');
             
-            if (!seat || seat === '관극예정') seat = '관극 예정'; 
-            else if (!/^[A-L]([1-9]|1[0-9])$/.test(seat)) return alert('유효하지 않은 좌석명입니다. (예: A10)');
+            if (!seat || seat === '관극예정') seat = '관극 예정'; else if (!/^[A-L]([1-9]|1[0-9])$/.test(seat)) return alert('유효하지 않은 좌석명입니다. (예: A10)');
             if(!time) return alert('회차를 선택해주세요.');
 
             const targetQty = parseInt(document.getElementById('stampsEarned').value);
-            const useCoupon = document.getElementById('useCoupon').checked;
+            const couponType = document.getElementById('couponType').value;
 
             if (editId) {
                 const rIndex = appData.records.findIndex(r => String(r.id) === String(editId));
                 if(rIndex > -1) {
                     const r = appData.records[rIndex];
-                    if (!r.useCoupon && useCoupon && appData.coupons <= 0) return alert('할인권이 부족합니다.');
+                    if (r.couponType !== '40' && couponType === '40' && appData.coupons <= 0) return alert('40% 할인권이 부족합니다.');
+                    if (r.couponType !== 'other' && couponType === 'other' && appData.otherCoupons <= 0) return alert('기타 할인권이 부족합니다.');
                     
                     r.cardId = Number(document.getElementById('editCardSelect').value);
                     r.date = date; r.time = time; r.parkyeol = parkyeol; r.fumiko = fumiko; r.ryuji = ryuji; 
-                    r.seat = seat; r.qty = targetQty; r.useCoupon = useCoupon;
+                    r.seat = seat; r.qty = targetQty; 
+                    r.couponType = couponType; r.useCoupon = (couponType === '40');
                 }
             } else {
-                if (useCoupon && appData.coupons <= 0) return alert('할인권이 부족합니다.');
+                if (couponType === '40' && appData.coupons <= 0) return alert('40% 할인권이 부족합니다.');
+                if (couponType === 'other' && appData.otherCoupons <= 0) return alert('기타 할인권이 부족합니다.');
 
                 const visitGroupId = Date.now();
-                let remainingStamps = targetQty;
-                let firstChunk = true;
-                
+                let remainingStamps = targetQty, firstChunk = true;
                 let activeCard = appData.cards.find(c => c.isActive);
-                if (!activeCard) {
-                    activeCard = { id: Date.now(), stamps: 0, isActive: true };
-                    appData.cards.push(activeCard);
-                }
+                if (!activeCard) { activeCard = { id: Date.now(), stamps: 0, isActive: true }; appData.cards.push(activeCard); }
 
                 while (remainingStamps > 0) {
                     let spaceLeft = 7 - activeCard.stamps;
                     if (spaceLeft === 0) {
-                        activeCard.isActive = false;
-                        activeCard = { id: Date.now() + Math.random(), stamps: 0, isActive: true };
-                        appData.cards.push(activeCard);
-                        spaceLeft = 7;
+                        activeCard.isActive = false; activeCard = { id: Date.now() + Math.random(), stamps: 0, isActive: true }; appData.cards.push(activeCard); spaceLeft = 7;
                     }
                     let stampsToApply = Math.min(remainingStamps, spaceLeft);
-                    
                     activeCard.stamps += stampsToApply;
                     
                     appData.records.push({ 
-                        id: Date.now() + Math.random(), 
-                        visitGroupId, 
-                        cardId: activeCard.id,
-                        date, time, parkyeol, fumiko, ryuji, seat, 
-                        qty: stampsToApply, 
-                        useCoupon: firstChunk ? useCoupon : false 
+                        id: Date.now() + Math.random(), visitGroupId, cardId: activeCard.id, date, time, parkyeol, fumiko, ryuji, seat, qty: stampsToApply, 
+                        couponType: firstChunk ? couponType : '', useCoupon: firstChunk ? (couponType === '40') : false 
                     });
-                    remainingStamps -= stampsToApply;
-                    firstChunk = false;
+                    remainingStamps -= stampsToApply; firstChunk = false;
                 }
             }
-            
-            saveData(); 
-            cancelEdit();
+            saveData(); cancelEdit();
         }
 
         function changeMonth(delta) {
@@ -856,7 +878,7 @@
                                 <span class="text-sm font-bold text-slate-800">${r.seat}</span>
                             </div>
                             <div class="text-[10px]">
-                                ${r.useCoupon ? '<span class="bg-amber-100 text-amber-800 px-2 py-1 rounded font-bold">할인권 적용 O</span>' : '<span class="bg-slate-100 text-slate-500 px-2 py-1 rounded font-bold">할인권 미적용</span>'}
+                                ${r.couponType === '40' || r.useCoupon ? '<span class="bg-amber-100 text-amber-800 px-2 py-1 rounded font-bold">40% 할인 O</span>' : r.couponType === 'other' ? '<span class="bg-purple-100 text-purple-800 px-2 py-1 rounded font-bold">기타 할인 O</span>' : '<span class="bg-slate-100 text-slate-500 px-2 py-1 rounded font-bold">할인 미사용</span>'}
                             </div>
                         </div>
                     `;
@@ -888,10 +910,11 @@
                                 <option value="2">도장 2개 적립</option>
                                 <option value="3">도장 3개 적립</option>
                             </select>
-                            <label class="flex items-center gap-1.5 bg-slate-50 px-2 rounded-lg border border-slate-200 cursor-pointer">
-                                <input type="checkbox" id="quickCoupon" class="w-3.5 h-3.5 text-py-500 rounded">
-                                <span class="text-[10px] font-semibold text-slate-700 whitespace-nowrap">할인권 사용</span>
-                            </label>
+                            <select id="quickCouponType" onchange="handleCouponChange(this)" class="flex-1 border border-slate-200 p-2 rounded-lg text-xs focus:outline-none focus:border-py-500 bg-slate-50">
+                                <option value="">할인 미사용</option>
+                                <option value="40">40% 할인권</option>
+                                <option value="other">기타 할인권</option>
+                            </select>
                         </div>
                         
                         <button onclick="quickAddRecord('${date}', '${time}', '${cast[0]}', '${cast[1]}', '${cast[2]}')" class="w-full bg-slate-800 text-white py-2 rounded-lg text-xs font-bold hover:bg-slate-900 transition mt-1">
@@ -911,52 +934,36 @@
 
         function quickAddRecord(date, time, parkyeol, fumiko, ryuji) {
             let seat = document.getElementById('quickSeat').value.toUpperCase().replace(/\s+/g, '');
-            if (!seat) seat = '관극 예정'; 
-            else if (!/^[A-L]([1-9]|1[0-9])$/.test(seat)) return alert('유효하지 않은 좌석명입니다. (예: A10)');
+            if (!seat) seat = '관극 예정'; else if (!/^[A-L]([1-9]|1[0-9])$/.test(seat)) return alert('유효하지 않은 좌석명입니다. (예: A10)');
             
             const qty = parseInt(document.getElementById('quickStamps').value);
-            const useCoupon = document.getElementById('quickCoupon').checked;
+            const couponType = document.getElementById('quickCouponType').value;
             
             const selectedCardId = Number(document.getElementById('quickCardId').value);
             let activeCard = appData.cards.find(c => c.id === selectedCardId);
-            
-            if (!activeCard) return alert('도장판을 선택해주세요. (생성된 도장판이 없다면 관극 기록 탭에서 추가해주세요)');
+            if (!activeCard) return alert('도장판을 선택해주세요.');
             
             appData.cards.forEach(c => c.isActive = (c.id === selectedCardId));
 
-            if (useCoupon && appData.coupons <= 0) return alert('할인권이 부족합니다.');
+            if (couponType === '40' && appData.coupons <= 0) return alert('40% 할인권이 부족합니다.');
+            if (couponType === 'other' && appData.otherCoupons <= 0) return alert('기타 할인권이 부족합니다.');
 
             const visitGroupId = Date.now();
-            let remainingStamps = qty;
-            let firstChunk = true;
+            let remainingStamps = qty, firstChunk = true;
             
             while (remainingStamps > 0) {
                 let spaceLeft = 7 - activeCard.stamps;
-                if (spaceLeft === 0) {
-                    activeCard.isActive = false;
-                    activeCard = { id: Date.now() + Math.random(), stamps: 0, isActive: true };
-                    appData.cards.push(activeCard);
-                    spaceLeft = 7;
-                }
+                if (spaceLeft === 0) { activeCard.isActive = false; activeCard = { id: Date.now() + Math.random(), stamps: 0, isActive: true }; appData.cards.push(activeCard); spaceLeft = 7; }
                 let stampsToApply = Math.min(remainingStamps, spaceLeft);
-                
                 activeCard.stamps += stampsToApply;
                 
                 appData.records.push({ 
-                    id: Date.now() + Math.random(), 
-                    visitGroupId, 
-                    cardId: activeCard.id, 
-                    date, time, parkyeol, fumiko, ryuji, seat, 
-                    qty: stampsToApply, 
-                    useCoupon: firstChunk ? useCoupon : false 
+                    id: Date.now() + Math.random(), visitGroupId, cardId: activeCard.id, date, time, parkyeol, fumiko, ryuji, seat, qty: stampsToApply, 
+                    couponType: firstChunk ? couponType : '', useCoupon: firstChunk ? (couponType === '40') : false 
                 });
-                remainingStamps -= stampsToApply;
-                firstChunk = false;
+                remainingStamps -= stampsToApply; firstChunk = false;
             }
-            
-            saveData();
-            closeScheduleDetailModal();
-            switchTab('logSheet');
+            saveData(); closeScheduleDetailModal(); switchTab('logSheet');
         }
 
         function deleteRecord(id) {
@@ -1028,6 +1035,7 @@
             for (let d = 1; d <= daysInMonth; d++) {
                 const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
                 const ev = eventsByDate[dateStr];
+                const dayOfWeek = (emptyCells + d - 1) % 7;
                 
                 if (ev) {
                     if (currentSpan.length === 0 || currentSpan[0].ev === ev) {
@@ -1036,9 +1044,15 @@
                         spans.push(currentSpan);
                         currentSpan = [{d, ev, dateStr}];
                     }
+                    
                     if (!eventColorMap[ev]) {
                         eventColorMap[ev] = ribbonColors[colorIndex % ribbonColors.length];
                         colorIndex++;
+                    }
+
+                    if (dayOfWeek === 6) {
+                        spans.push(currentSpan);
+                        currentSpan = [];
                     }
                 } else {
                     if (currentSpan.length > 0) spans.push(currentSpan);
@@ -1047,16 +1061,18 @@
             }
             if (currentSpan.length > 0) spans.push(currentSpan);
 
-            const centerDates = new Set();
+            const spanStartMap = {};
             spans.forEach(span => {
-                const midIndex = Math.floor((span.length - 1) / 2);
-                centerDates.add(span[midIndex].dateStr);
+                if (span.length > 0) {
+                    spanStartMap[span[0].dateStr] = span.length;
+                }
             });
 
             const realToday = new Date();
 
             for(let d=1; d<=daysInMonth; d++) {
-                const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`, dayOfWeek = (emptyCells + d - 1) % 7;
+                const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const dayOfWeek = (emptyCells + d - 1) % 7;
                 let dayColor = ''; if (dayOfWeek === 5) dayColor = 'text-blue-500'; else if (dayOfWeek === 6) dayColor = 'text-rose-500'; 
 
                 const isTodayActive = (realToday.getMonth() === month && realToday.getDate() === d);
@@ -1067,16 +1083,20 @@
                     : `<span class="text-[9px] md:text-[11px] font-semibold text-slate-700 px-1 ${dayColor}">${d}</span>`) +
                     `</div>`;
 
-                let cellZ = (eventsByDate[dateStr] && centerDates.has(dateStr)) ? 'z-20' : 'z-0';
+                let cellZ = spanStartMap[dateStr] ? 'z-20' : 'z-0';
 
                 let dayHtml = `<div class="bg-white min-h-[70px] md:min-h-[120px] pb-1 md:pb-2 flex flex-col relative group min-w-0 ${cellZ}">
                     ${dayNumHtml}`;
 
                 if (eventsByDate[dateStr]) {
-                    const eventText = eventsByDate[dateStr], pD = new Date(year, month, d-1), nD = new Date(year, month, d+1);
-                    const prevStr = `${pD.getFullYear()}-${String(pD.getMonth()+1).padStart(2,'0')}-${String(pD.getDate()).padStart(2,'0')}`, nextStr = `${nD.getFullYear()}-${String(nD.getMonth()+1).padStart(2,'0')}-${String(nD.getDate()).padStart(2,'0')}`;
+                    const eventText = eventsByDate[dateStr];
+                    const pD = new Date(year, month, d-1), nD = new Date(year, month, d+1);
+                    const prevStr = `${pD.getFullYear()}-${String(pD.getMonth()+1).padStart(2,'0')}-${String(pD.getDate()).padStart(2,'0')}`;
+                    const nextStr = `${nD.getFullYear()}-${String(nD.getMonth()+1).padStart(2,'0')}-${String(nD.getDate()).padStart(2,'0')}`;
                     const isFirstDayOfWeek = dayOfWeek === 0, isLastDayOfWeek = dayOfWeek === 6;
-                    const connLeft = eventsByDate[prevStr] === eventText && !isFirstDayOfWeek, connRight = eventsByDate[nextStr] === eventText && !isLastDayOfWeek; 
+                    
+                    const connLeft = eventsByDate[prevStr] === eventText && !isFirstDayOfWeek;
+                    const connRight = eventsByDate[nextStr] === eventText && !isLastDayOfWeek; 
                     
                     let rbCls = `${eventColorMap[eventText]} py-0.5 md:py-1 z-10 border-y relative h-[16px] md:h-[22px] flex items-center justify-center `;
                     if (connLeft && connRight) rbCls += "-ml-[1px] -mr-[1px] w-[calc(100%+2px)] border-x-0 rounded-none"; 
@@ -1084,7 +1104,17 @@
                     else if (connRight) rbCls += "ml-0.5 -mr-[1px] rounded-l rounded-r-none border-r-0 w-[calc(100%+1px)]";
                     else rbCls += "mx-1 rounded border w-[calc(100%-8px)]";
 
-                    const displayTxt = centerDates.has(dateStr) ? `<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-max px-1 text-[7.5px] md:text-[10px] tracking-tight font-bold whitespace-nowrap z-30 pointer-events-none text-slate-800 drop-shadow-sm">${eventText}</span>` : '';
+                    let displayTxt = '';
+                    
+                    if (spanStartMap[dateStr]) {
+                        const spanLen = spanStartMap[dateStr];
+                        displayTxt = `
+                            <div class="absolute top-0 left-0 h-full flex items-center justify-center z-30 pointer-events-none" style="width: calc(${spanLen * 100}% + ${spanLen - 1}px);">
+                                <span class="px-1 text-[7.5px] md:text-[10px] tracking-tight font-bold whitespace-nowrap text-slate-800 drop-shadow-sm">${eventText}</span>
+                            </div>
+                        `;
+                    }
+                    
                     dayHtml += `<div class="w-full relative mt-1">${displayTxt}<div class="${rbCls}" title="${eventText}"></div></div>`;
                 } else {
                     dayHtml += `<div class="h-[18px] md:h-[26px] mt-1"></div>`;
@@ -1258,13 +1288,12 @@
                             
                             <div style="position: absolute; inset: 0; background-image: url('${safeTex2}'); background-size: cover; opacity: 0.15; pointer-events: none; z-index: 0;"></div>
 
-                            <!-- 박열 로고 이미지 크기를 90px로 키웠습니다 -->
                             <div style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 15px; margin-bottom: 25px;">
                                 <img src="${safePyLogo}" style="height: 90px; object-fit: contain; filter: grayscale(100%) contrast(200%) brightness(0.2); opacity: 0.85;" alt="박열">
                             </div>
 
                             <div style="position: relative; z-index: 1; text-align: center; font-size: 22px; color: #2c2825; margin-bottom: 25px;">
-                                총 <span style="color: #7a2828; font-weight: bold; font-size: 40px; margin: 0 6px; border-bottom: 2px solid #7a2828;">${globalStats.totalVisits}</span> 회
+                                총 <span style="color: #7a2828; font-weight: bold; font-size: 40px; margin: 0 6px;">${globalStats.totalVisits}</span> 회
                             </div>
 
                             <div id="exportSeatingGrid" style="display:flex; flex-direction:column; gap: 5px; width: 100%; align-items: center; justify-content: center; position: relative; z-index: 1;"></div>
@@ -1357,6 +1386,10 @@
         function renderAll() {
             document.getElementById('globalCouponCount').innerText = `${appData.coupons}장`;
             document.getElementById('globalOstCount').innerText = `${appData.ostTickets}장`;
+            document.getElementById('globalOtherCouponCount').innerText = `${appData.otherCoupons}장`;
+
+            const hoverCount = document.getElementById('hoverOtherCouponCount');
+            if (hoverCount) hoverCount.innerText = appData.otherCoupons;
 
             const cb = document.getElementById('cardContainer'); cb.innerHTML = '';
             appData.cards.forEach((c, i) => {
@@ -1381,8 +1414,15 @@
             if(ordGrps.length === 0) tbody.innerHTML = `<tr><td class="p-8 text-center text-slate-400">등록된 일지가 없습니다.</td></tr>`;
             else ordGrps.slice().reverse().forEach(g => {
                 const main = g.records[0], cStr = g.records.map(r => { const cIdx = appData.cards.findIndex(c => c.id === r.cardId); return cIdx > -1 ? `판 #${cIdx + 1}` : '삭제됨'; }).map(n => `<span class="bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded text-[9px] mr-1">[${n}]</span>`).join('');
-                const qStr = g.records.map(r => `+${r.qty}`).join(', '), usedCp = g.records.some(r => r.useCoupon);
-                tbody.innerHTML += `<tr class="hover:bg-slate-50 transition"><td class="py-3 px-1"><div class="flex justify-between items-start mb-1"><div class="font-bold text-slate-800 flex items-center flex-wrap gap-y-1"><span class="bg-stone-200 text-stone-700 px-1.5 py-0.5 rounded text-[9px] mr-1 font-bold">[자${sMap[g.gid]}]</span>${cStr}<span class="ml-0.5">${main.date} <span class="text-py-500 text-[10px] font-bold">${main.time}</span></span></div><div class="flex gap-1.5 items-center pl-2">${usedCp ? '<span class="bg-amber-100 text-amber-800 text-[9px] font-bold px-1 rounded flex-shrink-0">할인</span>' : ''}<span class="text-py-500 font-bold whitespace-nowrap">${qStr}</span></div></div><div class="flex justify-between items-center text-slate-600 mt-1"><span>${main.parkyeol}, ${main.fumiko}, ${main.ryuji}</span><div class="flex gap-3 items-center"><span class="font-bold text-py-900">${main.seat}</span><div class="flex gap-1.5"><button onclick="editRecord(${main.id})" class="text-[10px] bg-slate-100 text-slate-500 hover:bg-amber-100 hover:text-amber-600 px-1.5 py-0.5 rounded transition">수정</button><button onclick="deleteRecord(${main.id})" class="text-[10px] bg-slate-100 text-slate-500 hover:bg-rose-100 hover:text-rose-600 px-1.5 py-0.5 rounded transition">삭제</button></div></div></div></td></tr>`;            });
+                const qStr = g.records.map(r => `+${r.qty}`).join(', ');
+                
+                const used40 = g.records.some(r => r.couponType === '40' || r.useCoupon);
+                const usedOther = g.records.some(r => r.couponType === 'other');
+                let cpBadge = '';
+                if(used40) cpBadge += '<span class="bg-amber-100 text-amber-800 text-[9px] font-bold px-1 rounded flex-shrink-0 mr-0.5">40%할인</span>';
+                if(usedOther) cpBadge += '<span class="bg-purple-100 text-purple-800 text-[9px] font-bold px-1 rounded flex-shrink-0 mr-0.5">기타할인</span>';
+
+                tbody.innerHTML += `<tr class="hover:bg-slate-50 transition"><td class="py-3 px-1"><div class="flex justify-between items-start mb-1"><div class="font-bold text-slate-800 flex items-center flex-wrap gap-y-1"><span class="bg-stone-200 text-stone-700 px-1.5 py-0.5 rounded text-[9px] mr-1 font-bold">[자${sMap[g.gid]}]</span>${cStr}<span class="ml-0.5">${main.date} <span class="text-py-500 text-[10px] font-bold">${main.time}</span></span></div><div class="flex gap-1.5 items-center pl-2">${cpBadge}<span class="text-py-500 font-bold whitespace-nowrap">${qStr}</span></div></div><div class="flex justify-between items-center text-slate-600 mt-1"><span>${main.parkyeol}, ${main.fumiko}, ${main.ryuji}</span><div class="flex gap-3 items-center"><span class="font-bold text-py-900">${main.seat}</span><div class="flex gap-1.5"><button onclick="editRecord(${main.id})" class="text-[10px] bg-slate-100 text-slate-500 hover:bg-amber-100 hover:text-amber-600 px-1.5 py-0.5 rounded transition">수정</button><button onclick="deleteRecord(${main.id})" class="text-[10px] bg-slate-100 text-slate-500 hover:bg-rose-100 hover:text-rose-600 px-1.5 py-0.5 rounded transition">삭제</button></div></div></div></td></tr>`;            });
             
             generateHeatmap(); 
             calculateStatsSheet();
@@ -1402,6 +1442,7 @@
             document.getElementById('perfDate').value = defaultDate;
             await loadScheduleFromGoogleSheet();
             handleDateChange();
+            recalculateState();
             renderAll(); 
         };
     </script>
