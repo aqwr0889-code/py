@@ -157,17 +157,6 @@
 
         <div id="logSheet" class="tab-content active">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                            <i class="fa-solid fa-stamp text-py-500"></i> 보유 도장판
-                        </h2>
-                        <button onclick="createNewCard()" class="text-xs bg-py-50 text-py-600 hover:bg-py-100 px-2.5 py-1.5 rounded-lg font-semibold transition shadow-sm">
-                            + 추가
-                        </button>
-                    </div>
-                    <div id="cardContainer" class="space-y-3 flex-grow overflow-y-auto max-h-[400px] pr-1"></div>
-                </div>
 
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col relative">
                     <div id="scheduleLoadingOverlay" class="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center rounded-2xl">
@@ -270,6 +259,18 @@
                 </div>
 
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-stamp text-py-500"></i> 보유 도장판
+                        </h2>
+                        <button onclick="createNewCard()" class="text-xs bg-py-50 text-py-600 hover:bg-py-100 px-2.5 py-1.5 rounded-lg font-semibold transition shadow-sm">
+                            + 추가
+                        </button>
+                    </div>
+                    <div id="cardContainer" class="space-y-3 flex-grow overflow-y-auto max-h-[400px] pr-1"></div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col">
                     <h2 class="text-sm font-bold text-slate-900 mb-4 flex items-center gap-1.5">
                         <i class="fa-solid fa-list-ol text-py-500"></i> 관극 타임라인
                     </h2>
@@ -317,8 +318,8 @@
                     </div>
                 </div>
                 
-                <div class="w-full overflow-x-auto pb-4">
-                    <div class="min-w-[340px] md:min-w-full border border-slate-200 bg-slate-200 grid grid-cols-7 gap-px rounded-xl overflow-hidden shadow-inner" id="calendarGrid">
+                <div class="w-full pb-4">
+                    <div class="w-full border border-slate-200 bg-slate-200 grid grid-cols-7 gap-px rounded-xl overflow-hidden shadow-inner" id="calendarGrid">
                         </div>
                 </div>
                 
