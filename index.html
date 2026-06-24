@@ -681,7 +681,7 @@
         function fullReset() { if(confirm("정말 모두 초기화하시겠습니까?")) { appData = { cards: [{ id: Date.now(), stamps: 0, isActive: true }], coupons: 0, ostTickets: 0, records: [], baseOtherCoupons: 0 }; saveData(); alert('초기화 완료'); } }
         
         let currentTicketType = '';
-        const ticketNames = { 'coupon': '🎟️ 40% 할인권', 'ost': '💿 OST 교환권', 'other': '🎫 기타 할인권' };
+        const ticketNames = { 'coupon': '🎟️ 40% 할인권', 'ost': '🎁 7회 교환권', 'other': '🎫 기타 할인권' };
 
         function openTicketModal(type) {
             currentTicketType = type;
