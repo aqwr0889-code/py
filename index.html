@@ -722,7 +722,7 @@
         }
 
         function deleteTicketHistory(id) {
-            if(!confirm('이 수동 내역을 장부에서 삭제하시겠습니까?')) return;
+            if(!confirm('이 내역을 삭제하시겠습니까?')) return;
             appData.ticketHistory = appData.ticketHistory.filter(h => h.id !== id);
             saveData();
             renderTicketHistory();
@@ -736,17 +736,17 @@
             let autoStr = '';
             if(currentTicketType === 'coupon') {
                 const used = appData.records.filter(r => r.couponType === '40').length;
-                autoStr = used > 0 ? `(관극 기록에서 ${used}장 사용 완료)` : `(현재 사용 이력 없음)`;
+                autoStr = used > 0 ? `(${used}장 차감 완료)` : `(차감 이력 없음)`;
             } else if(currentTicketType === 'other') {
                 const used = appData.records.filter(r => r.couponType === 'other').length;
-                autoStr = used > 0 ? `(관극 기록에서 ${used}장 사용 완료)` : `(현재 사용 이력 없음)`;
+                autoStr = used > 0 ? `(${used}장 차감 완료)` : `(차감 이력 없음)`;
             }
 
             const currentTotal = currentTicketType === 'coupon' ? appData.coupons : currentTicketType === 'ost' ? appData.ostTickets : appData.otherCoupons;
-            document.getElementById('ticketModalStatus').innerText = `✅ 현재 최종 보유량: ${currentTotal}장 ${autoStr}`;
+            document.getElementById('ticketModalStatus').innerText = `✅ 현재 보유량: ${currentTotal}장 ${autoStr}`;
 
             if(history.length === 0) {
-                list.innerHTML = `<div class="text-center text-slate-400 text-xs py-5 bg-slate-50 rounded-lg border border-slate-100">수동으로 추가/차감한 이력이 없습니다.</div>`;
+                list.innerHTML = `<div class="text-center text-slate-400 text-xs py-5 bg-slate-50 rounded-lg border border-slate-100">추가/차감한 이력이 없습니다.</div>`;
                 return;
             }
 
