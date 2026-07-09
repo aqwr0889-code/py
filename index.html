@@ -189,16 +189,18 @@
                             </select>
                         </div>
                         
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">관극 날짜</label>
-                            <input type="date" id="perfDate" min="2026-06-10" max="2026-09-06" required onchange="handleDateChange()"
-                                   class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">회차 선택</label>
-                            <select id="perfTime" required onchange="handleTimeChange()" class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500">
-                                <option value="">날짜를 먼저 선택하세요</option>
-                            </select>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">관극 날짜</label>
+                                <input type="date" id="perfDate" min="2026-06-10" max="2026-09-06" required onchange="handleDateChange()"
+                                    class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">회차 선택</label>
+                                <select id="perfTime" required onchange="handleTimeChange()" class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500">
+                                    <option value="">날짜를 먼저 선택하세요</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="grid grid-cols-3 gap-3">
                             <div>
