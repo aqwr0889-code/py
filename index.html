@@ -1097,9 +1097,10 @@
                         couponType: firstChunk ? couponType : '', useCoupon: firstChunk ? (couponType === '40') : false 
                     });
                     remainingStamps -= stampsToApply; firstChunk = false;
+                }
             }
             saveData(); 
-            closeScheduleDetailModal(); 
+            cancelEdit();
             alert('관극 기록이 정상적으로 저장되었습니다.');
         }
 
@@ -1230,7 +1231,9 @@
                 });
                 remainingStamps -= stampsToApply; firstChunk = false;
             }
-            saveData(); closeScheduleDetailModal(); switchTab('logSheet');
+            saveData(); 
+            closeScheduleDetailModal(); 
+            alert('관극 기록이 정상적으로 저장되었습니다.');
         }
 
         function deleteRecord(id) {
