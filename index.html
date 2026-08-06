@@ -416,6 +416,86 @@
         </div>
     </div>
 
+    <div id="editRecordModal" class="modal-overlay z-[120]" onclick="if(event.target === this) closeEditModal()">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-sm flex flex-col shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button type="button" onclick="closeEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition text-xl px-2">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square text-amber-500"></i> 기록 수정
+            </h3>
+            
+            <form onsubmit="saveEditedRecord(event)" class="space-y-4 flex-grow flex flex-col">
+                <input type="hidden" id="modalEditId" value="">
+                
+                <div class="bg-py-50 p-3 rounded-xl border border-py-200 mb-1">
+                    <label class="block text-[11px] font-bold text-py-800 mb-1.5 flex items-center gap-1">
+                        <i class="fa-solid fa-folder-tree"></i> 도장판 변경
+                    </label>
+                    <select id="modalEditCardSelect" class="w-full border border-py-200 bg-white p-2 rounded-lg text-xs focus:outline-none focus:border-py-500 font-medium text-slate-700"></select>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1">관극 날짜</label>
+                        <input type="date" id="modalPerfDate" min="2026-06-10" max="2026-09-06" required onchange="handleModalDateChange()"
+                            class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1">회차 선택</label>
+                        <select id="modalPerfTime" required onchange="handleModalTimeChange()" class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500">
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">박열</label>
+                        <select id="modalCastParkyeol" class="w-full border border-slate-200 p-2 rounded-xl text-sm bg-white focus:outline-none">
+                            <option value="손유동">손유동</option><option value="현석준">현석준</option><option value="백기범">백기범</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">후미코</label>
+                        <select id="modalCastFumiko" class="w-full border border-slate-200 p-2 rounded-xl text-sm bg-white focus:outline-none">
+                            <option value="최수진">최수진</option><option value="허윤슬">허윤슬</option><option value="임예진">임예진</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">류지</label>
+                        <select id="modalCastRyuji" class="w-full border border-slate-200 p-2 rounded-xl text-sm bg-white focus:outline-none">
+                            <option value="박영수">박영수</option><option value="장민수">장민수</option><option value="임별">임별</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1">좌석 정보</label>
+                    <input type="text" id="modalSeatInfo" placeholder="예: A10 (미입력 시 '관극 예정')" class="w-full border border-slate-200 p-2 rounded-xl text-sm focus:outline-none focus:border-py-500 uppercase">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3 mt-auto pt-2">
+                    <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                        <label class="block text-[10px] font-semibold text-slate-500 mb-1">도장 개수</label>
+                        <select id="modalStampsEarned" class="w-full bg-white border border-slate-200 p-1 rounded-lg text-xs">
+                            <option value="1">1개</option><option value="2">2개</option><option value="3">3개</option>
+                        </select>
+                    </div>
+                    <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                        <label class="block text-[10px] font-semibold text-slate-500 mb-1">할인권 사용</label>
+                        <select id="modalCouponType" onchange="handleModalCouponChange(this)" class="w-full bg-white border border-slate-200 p-1 rounded-lg text-xs focus:outline-none focus:border-py-500">
+                            <option value="">미사용</option>
+                            <option value="40">40% 할인권</option>
+                            <option value="other">기타 할인권</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-amber-600 text-white py-2.5 rounded-xl hover:bg-amber-700 transition text-sm font-bold mt-2 shadow-sm">
+                    🔄 정보 수정 완료
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div id="scheduleDetailModal" class="modal-overlay z-[110]" onclick="if(event.target === this) closeScheduleDetailModal()">
         <div class="bg-white rounded-2xl p-6 w-full max-w-sm flex flex-col shadow-2xl relative">
             <button onclick="closeScheduleDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition text-xl px-2">
@@ -628,6 +708,7 @@
                         cols[2] ? cols[2].trim() : '', 
                         cols[3] ? cols[3].trim() : '', 
                         cols[4] ? cols[4].trim() : '',
+                        eventStr
                     ];
 
                     if (eventStr) {
@@ -635,6 +716,11 @@
                             eventsByDate[dateStr] += ' / ' + eventStr;
                         } else if (!eventsByDate[dateStr]) {
                             eventsByDate[dateStr] = eventStr;
+                        }
+                        
+                        if (!eventColorMap[eventStr]) {
+                            eventColorMap[eventStr] = ribbonColors[colorIndex % ribbonColors.length];
+                            colorIndex++;
                         }
                     }
                 });
@@ -859,40 +945,111 @@
             const groupId = r.visitGroupId || r.id;
             if (appData.records.filter(rec => (rec.visitGroupId || rec.id) === groupId).length > 1) return alert('분할 적립된 기록은 개별 수정이 불가합니다. 삭제 후 다시 등록해주세요.');
             
-            document.getElementById('editRecordId').value = r.id; 
-            const cardSel = document.getElementById('editCardSelect');
+            document.getElementById('modalEditId').value = r.id; 
+            const cardSel = document.getElementById('modalEditCardSelect');
             cardSel.innerHTML = appData.cards.map((c, i) => `<option value="${c.id}">📁 도장판 #${i+1} (현재 ${c.stamps}개)</option>`).join('');
             cardSel.value = r.cardId;
-            document.getElementById('editCardArea').classList.remove('hidden');
             
-            document.getElementById('perfDate').value = r.date; handleDateChange();
+            document.getElementById('modalPerfDate').value = r.date; 
+            handleModalDateChange();
 
-            const ts = document.getElementById('perfTime'), pureTime = r.time.replace(' (수동)', '');
-            if(!Array.from(ts.options).some(opt => opt.value === pureTime)) ts.innerHTML += `<option value="${pureTime}">${pureTime} (수동)</option>`;
+            const ts = document.getElementById('modalPerfTime');
+            const pureTime = r.time.replace(' (수동)', '');
+            if(!Array.from(ts.options).some(opt => opt.value === pureTime)) {
+                ts.innerHTML += `<option value="${pureTime}">${pureTime} (수동)</option>`;
+            }
             ts.value = pureTime;
-            document.getElementById('castParkyeol').value = r.parkyeol; document.getElementById('castFumiko').value = r.fumiko; document.getElementById('castRyuji').value = r.ryuji;
-            document.getElementById('seatInfo').value = (r.seat === '관극 예정') ? '' : r.seat; 
-            document.getElementById('stampsEarned').value = r.qty;
             
-            document.getElementById('couponType').value = r.couponType || (r.useCoupon ? '40' : '');
+            document.getElementById('modalCastParkyeol').value = r.parkyeol; 
+            document.getElementById('modalCastFumiko').value = r.fumiko; 
+            document.getElementById('modalCastRyuji').value = r.ryuji;
+            document.getElementById('modalSeatInfo').value = (r.seat === '관극 예정') ? '' : r.seat; 
+            document.getElementById('modalStampsEarned').value = r.qty;
+            document.getElementById('modalCouponType').value = r.couponType || (r.useCoupon ? '40' : '');
 
-            document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen-to-square text-amber-500"></i> 기록 수정 중...';
-            document.getElementById('submitBtn').innerText = '🔄 수정된 정보 저장'; document.getElementById('submitBtn').classList.replace('bg-slate-900', 'bg-amber-600'); document.getElementById('cancelEditBtn').classList.remove('hidden');
+            document.getElementById('editRecordModal').classList.add('active');
         }
 
-        function cancelEdit() {
-            document.getElementById('editRecordId').value = ''; document.getElementById('recordForm').reset();
-            document.getElementById('editCardArea').classList.add('hidden');
-            const t = new Date();
-            let defaultDate = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
-            if (defaultDate < '2026-06-10') defaultDate = '2026-06-10';
-            if (defaultDate > '2026-09-06') defaultDate = '2026-09-06';
-            document.getElementById('perfDate').value = defaultDate; 
-            handleDateChange();
-            document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen text-py-500"></i> 관극 기록';
-            document.getElementById('submitBtn').innerText = '💾 저장 및 적립'; document.getElementById('submitBtn').classList.replace('bg-amber-600', 'bg-slate-900'); document.getElementById('cancelEditBtn').classList.add('hidden');
+        function closeEditModal() {
+            document.getElementById('editRecordModal').classList.remove('active');
         }
 
+        function handleModalDateChange() {
+            const dateInput = document.getElementById('modalPerfDate').value;
+            const timeSelect = document.getElementById('modalPerfTime');
+            const currentTimeVal = timeSelect.value;
+            timeSelect.innerHTML = '';
+            if (!dateInput) { timeSelect.innerHTML = '<option value="">선택</option>'; return; }
+            
+            const daySchedule = castSchedule[dateInput];
+            let optionsHtml = '<option value="">선택하세요</option>';
+            
+            if (daySchedule) {
+                const availableTimes = Object.keys(daySchedule).sort((a, b) => getTimeWeight(a) - getTimeWeight(b));
+                availableTimes.forEach(t => {
+                    let icon = (t.includes('낮') || getTimeWeight(t) < 1020) ? "🌞" : "🌙";
+                    optionsHtml += `<option value="${t}">${icon} ${t}</option>`;
+                });
+                timeSelect.innerHTML = optionsHtml;
+                if (availableTimes.length === 1) timeSelect.value = availableTimes[0];
+                else if (currentTimeVal && Array.from(timeSelect.options).some(opt => opt.value === currentTimeVal)) timeSelect.value = currentTimeVal;
+            } else {
+                optionsHtml += `<option value="14:00">🌞 14:00 (수동)</option><option value="18:00">🌙 18:00 (수동)</option><option value="20:00">🌙 20:00 (수동)</option>`;
+                timeSelect.innerHTML = optionsHtml;
+            }
+            handleModalTimeChange();
+        }
+
+        function handleModalTimeChange() {
+            const date = document.getElementById('modalPerfDate').value, time = document.getElementById('modalPerfTime').value;
+            if (!date || !time || !castSchedule[date] || !castSchedule[date][time]) return;
+            const [p, f, r] = castSchedule[date][time];
+            document.getElementById('modalCastParkyeol').value = p; 
+            document.getElementById('modalCastFumiko').value = f; 
+            document.getElementById('modalCastRyuji').value = r;
+        }
+
+        function handleModalCouponChange(elem) {
+            if (elem.value === '40' && appData.coupons <= 0) {
+                alert('40% 할인권이 부족합니다.'); elem.value = '';
+            } else if (elem.value === 'other' && appData.otherCoupons <= 0) {
+                alert('기타 할인권이 부족합니다.'); elem.value = '';
+            }
+        }
+
+        function saveEditedRecord(e) {
+            e.preventDefault();
+            const editId = document.getElementById('modalEditId').value;
+            const date = document.getElementById('modalPerfDate').value;
+            const time = document.getElementById('modalPerfTime').value.replace(' (수동)', '');
+            const parkyeol = document.getElementById('modalCastParkyeol').value;
+            const fumiko = document.getElementById('modalCastFumiko').value;
+            const ryuji = document.getElementById('modalCastRyuji').value;
+            let seat = document.getElementById('modalSeatInfo').value.toUpperCase().replace(/\s+/g, '');
+            
+            if (!seat || seat === '관극예정') seat = '관극 예정'; 
+            else if (!/^[A-L]([1-9]|1[0-9])$/.test(seat)) return alert('유효하지 않은 좌석명입니다. (예: A10)');
+            
+            if(!time) return alert('회차를 선택해주세요.');
+
+            const targetQty = parseInt(document.getElementById('modalStampsEarned').value);
+            const couponType = document.getElementById('modalCouponType').value;
+
+            const rIndex = appData.records.findIndex(r => String(r.id) === String(editId));
+            if(rIndex > -1) {
+                const r = appData.records[rIndex];
+                if (r.couponType !== '40' && couponType === '40' && appData.coupons <= 0) return alert('40% 할인권이 부족합니다.');
+                if (r.couponType !== 'other' && couponType === 'other' && appData.otherCoupons <= 0) return alert('기타 할인권이 부족합니다.');
+                
+                r.cardId = Number(document.getElementById('modalEditCardSelect').value);
+                r.date = date; r.time = time; r.parkyeol = parkyeol; r.fumiko = fumiko; r.ryuji = ryuji; 
+                r.seat = seat; r.qty = targetQty; 
+                r.couponType = couponType; r.useCoupon = (couponType === '40');
+            }
+            saveData(); 
+            closeEditModal();
+        }
+        
         function addOrUpdateRecord(e) {
             e.preventDefault();
             const editId = document.getElementById('editRecordId').value;
@@ -940,9 +1097,10 @@
                         couponType: firstChunk ? couponType : '', useCoupon: firstChunk ? (couponType === '40') : false 
                     });
                     remainingStamps -= stampsToApply; firstChunk = false;
-                }
             }
-            saveData(); cancelEdit();
+            saveData(); 
+            closeScheduleDetailModal(); 
+            alert('관극 기록이 정상적으로 저장되었습니다.');
         }
 
         function changeMonth(delta) {
@@ -953,7 +1111,8 @@
         function showScheduleDetail(date, time) {
             const cast = castSchedule[date][time];
             const records = appData.records.filter(r => r.date === date && r.time === time);
-            const evt = cast[3] ? cast[3] : eventsByDate[date];
+            
+            const evt = cast[3] || '';
             
             let html = `
                 <div class="mb-4 text-center">
