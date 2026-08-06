@@ -622,15 +622,20 @@
                     if (/^\d{1,2}:\d{2}:\d{2}$/.test(timeStr)) timeStr = timeStr.substring(0, 5);
                     
                     if (!castSchedule[dateStr]) castSchedule[dateStr] = {};
+                    let eventStr = cols[5] ? cols[5].trim() : '';
+                    
                     castSchedule[dateStr][timeStr] = [
                         cols[2] ? cols[2].trim() : '', 
                         cols[3] ? cols[3].trim() : '', 
-                        cols[4] ? cols[4].trim() : ''
+                        cols[4] ? cols[4].trim() : '',
                     ];
 
-                    let eventStr = cols[5] ? cols[5].trim() : '';
                     if (eventStr) {
-                        eventsByDate[dateStr] = eventStr;
+                        if (eventsByDate[dateStr] && !eventsByDate[dateStr].includes(eventStr)) {
+                            eventsByDate[dateStr] += ' / ' + eventStr;
+                        } else if (!eventsByDate[dateStr]) {
+                            eventsByDate[dateStr] = eventStr;
+                        }
                     }
                 });
 
@@ -948,7 +953,7 @@
         function showScheduleDetail(date, time) {
             const cast = castSchedule[date][time];
             const records = appData.records.filter(r => r.date === date && r.time === time);
-            const evt = eventsByDate[date];
+            const evt = cast[3] ? cast[3] : eventsByDate[date];
             
             let html = `
                 <div class="mb-4 text-center">
